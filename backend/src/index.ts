@@ -1,18 +1,10 @@
-import express, { Request, Response } from "express";
-import cors from "cors";
-import "dotenv/config";
+import app from "./app";
+import dev from "./config/config";
+import connectDB from "./config/db";
 
-const app = express();
+const PORT = dev.app.port;
 
-app.use(express.json());
-app.use(cors());
-
-app.get("/test", async (req: Request, res: Response) => {
-  res.json({
-    message: "hello",
-  });
-});
-
-app.listen(7000, () => {
-  console.log("Server started on localhost:7000");
+app.listen(PORT, async () => {
+  console.log(`Server started on localhost:${PORT}`);
+  await connectDB();
 });
