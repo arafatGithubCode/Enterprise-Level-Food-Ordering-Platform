@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import MyUserController from "../controllers/user.controller";
+import MyUserController from "../controllers/MyUserController";
 
 // /api/my/user
 router.post("/", MyUserController.createCurrentUser);
