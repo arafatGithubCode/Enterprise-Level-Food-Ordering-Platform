@@ -8,8 +8,12 @@ import {
 } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { useAuth0 } from "@auth0/auth0-react";
+import MobileNavLinks from "./MobileNabLinks";
 
 const MobileNav = () => {
+  const { isAuthenticated, user } = useAuth0();
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -17,11 +21,24 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
-          <span> Welcome to MernEats.com!</span>
+          {isAuthenticated ? (
+            <span className="flex items-center font-bold gap-2">
+              <div className="w-7 h-7">
+                <img
+                  className="w-full rounded-full object-cover"
+                  src={user?.picture}
+                  alt={user?.name}
+                />
+              </div>
+              {user?.email}
+            </span>
+          ) : (
+            <span> Welcome to MernEats.com!</span>
+          )}
         </SheetTitle>
         <Separator />
         <SheetDescription className="flex flex-col gap-4">
-          <Button> Log In</Button>
+          {isAuthenticated ? <MobileNavLinks /> : <Button> Log In</Button>}
         </SheetDescription>
       </SheetContent>
     </Sheet>
