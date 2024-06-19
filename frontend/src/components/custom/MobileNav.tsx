@@ -12,7 +12,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNabLinks";
 
 const MobileNav = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, loginWithRedirect } = useAuth0();
 
   return (
     <Sheet>
@@ -38,7 +38,11 @@ const MobileNav = () => {
         </SheetTitle>
         <Separator />
         <SheetDescription className="flex flex-col gap-4">
-          {isAuthenticated ? <MobileNavLinks /> : <Button> Log In</Button>}
+          {isAuthenticated ? (
+            <MobileNavLinks />
+          ) : (
+            <Button onClick={async () => loginWithRedirect()}> Log In</Button>
+          )}
         </SheetDescription>
       </SheetContent>
     </Sheet>
